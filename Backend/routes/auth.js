@@ -13,10 +13,11 @@ router.get('/',[
     body('password','Password must be atleast 5 characters').isLength({min:5}),
 ],
     (req,res)=>{
-    console.log(req.body);
-    const user=User(req.body);
-    user.save();
-    res.send('Hello World');
+    const errors=validationResult(req);
+    if(!errors.isEmpty()){
+        return res.status(400).json({errors:errors.array()});
+    }
+    res.send(req.body);
 })
 
 module.exports=router;
