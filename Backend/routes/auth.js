@@ -5,6 +5,8 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const {body,validationResult} = require('express-validator');
 
+const JWT_SECRET = 'Shikharisagoodb$oy';
+
 // Create a new user using : POST "/api/auth/createuser". No login required
 router.post('/createuser', [
     body('name','Enter a valid name').isLength({min:3}),
