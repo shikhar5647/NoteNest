@@ -1,7 +1,7 @@
 const connectToMongo = require('./db');
 const express = require('express');
 
-const database = connectToMongo(); // Ensure this is called before starting the server
+connectToMongo(); // Ensure this is called before starting the server
 
 const app = express();
 const port = 5000;
