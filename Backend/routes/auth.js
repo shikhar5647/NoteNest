@@ -1,4 +1,4 @@
-;const router = require('express').Router();
+const router = require('express').Router();
 
 const mongoose = require('mongoose');
 const Users = require('../models/User');
@@ -8,7 +8,7 @@ const {body,validationResult} = require('express-validator');
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = 'Shikharisagoodb$oy';
 
-// Create a new user using : POST "/api/auth/createuser". No login required
+// Route 1 Create a new user using : POST "/api/auth/createuser". No login required
  [
      body('name','Enter a valid name').isLength({min:3}),
      body('email','Enter a valid email').isEmail(),
@@ -52,7 +52,7 @@ router.post('/createuser', async (req,res) => {
     }
 });
 
-// Authenticate a User using : POST "/api/auth/login". No login required
+// Route 2 : Authenticate a User using : POST "/api/auth/login". No login required
 router.post('/login', [
     body('email','Enter a valid email').isEmail(),
     body('password','Password cannot be blank').exists(),
@@ -87,4 +87,24 @@ async (req,res) => {
     }
 }
 )
+
+// Route 3 : Get loggedin User Details using : POST "/api/auth/getuser". Login required
+router.post('/getuser', fetchuser, async (req,res) => {
+    try{
+        userId = req.user.id;
+        const user = await User.findById(userId).select("-password");
+        res.send(
+            user
+        );
+        console.log(user);
+        console.log(userId);
+        console.log(req.user);
+        console.log(req.user.id);
+    }
+    catch(error){
+        console.log(error);
+        res.status(500).send("Internal Server Error");
+    }
+})
+
 module.exports = router;
