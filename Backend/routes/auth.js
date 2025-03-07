@@ -97,10 +97,6 @@ router.post('/getuser', fetchuser, async (req,res) => {
         res.send(
             user
         );
-        console.log(user);
-        console.log(userId);
-        console.log(req.user);
-        console.log(req.user.id);
     }
     catch(error){
         console.log(error);
