@@ -65,7 +65,7 @@ async (req,res) => {
     }
     const {email,password} = req.body;
     try{
-        let user = await User.findOne({email});
+        let user = await Users.findOne({email});
         if(!user){
             return res.status(400).json({error: "Please try to login with correct credentials"});
         }
@@ -93,7 +93,7 @@ async (req,res) => {
 router.post('/getuser', fetchuser, async (req,res) => {
     try{
         userId = req.user.id;
-        const user = await User.findById(userId).select("-password");
+        const user = await Users.findById(userId).select("-password");
         res.send(
             user
         );
