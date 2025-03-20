@@ -5,6 +5,7 @@ import {
     Route,
     Link
 } from "react-router-dom";
+import About from './About';
 
 const Navbar = () => {
     return (
@@ -21,7 +22,7 @@ const Navbar = () => {
                                 <Link className="nav-link active" aria-current="page" to="/">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="/">Link</Link>
+                                <Link className="nav-link" to="/About">About</Link>
                             </li>
                             
                         </ul>
