@@ -6,10 +6,12 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import Navbar from './Components/Navbar';
 
 function App() {
   return (
     <>
+    <Navbar/>
       <h1> This is Notenest </h1>
     </>
   );
