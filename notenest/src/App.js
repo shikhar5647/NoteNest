@@ -12,8 +12,16 @@ import Home from './Components/Home';
 function App() {
   return (
     <>
-    <Navbar/>
-      <Home/>
+      <Router>
+        <Navbar />
+        <Home />
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+        </Routes>
+        <Routes>
+          <Route exact path="/about" element={<Home />} />
+        </Routes>
+      </Router>
     </>
   );
 }
