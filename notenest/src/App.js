@@ -7,12 +7,13 @@ import {
   Link
 } from "react-router-dom";
 import Navbar from './Components/Navbar';
+import Home from './Components/Home';
 
 function App() {
   return (
     <>
     <Navbar/>
-      <h1> This is Notenest </h1>
+      <Home/>
     </>
   );
 }
