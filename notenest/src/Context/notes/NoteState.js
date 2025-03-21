@@ -3,8 +3,8 @@ import NoteContext from "./noteContext";
 
 const NoteState = (props) => {
   const state = {
-    "name": "Harry",
-    "class": "5A"
+    "name": "Shikhar",
+    "class": "10B"
   }
   return (
     <NoteContext.Provider value={state}>
