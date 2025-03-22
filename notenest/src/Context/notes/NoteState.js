@@ -4,7 +4,7 @@ import NoteContext from "./noteContext";
 const NoteState = (props) => {
   const [notes, setNotes] = useState([]);
   return (
-    <NoteContext.Provider value={{}}>
+    <NoteContext.Provider value={{notes, setNotes}}>
       {props.children}
     </NoteContext.Provider>
   )
