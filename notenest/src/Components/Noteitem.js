@@ -1,7 +1,11 @@
 import React from 'react'
+import { useContext } from 'react'
+import noteContext from '../Context/notes/noteContext'
 
 const Noteitem = (props) => {
   const {note, updateNote} = props;
+  const context = useContext(noteContext);
+  const {deleteNote} = context;
   return (
     <div>
         <div className="card" style={{width: "18rem"}}>
