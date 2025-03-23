@@ -21,8 +21,8 @@ export const Home = () => {
         </div>
         <button type="submit" className="btn btn-primary">Submit</button>
       </form>
-    </div><div className="container my-3">
+    </div>
         <Notes />
-      </div></>
+      </>
   );
 };
