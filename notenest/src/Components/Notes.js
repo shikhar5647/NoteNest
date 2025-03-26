@@ -15,6 +15,16 @@ const Notes = () => {
     ref.current.click();
     setNote(currentNote);
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    editNote(note._id, note.title, note.description, note.tag);
+    setNote({ title: "", description: "", tag: "" });
+    ref.current.click();
+  };
+  const [note, setNote] = useState({ title: "", description: "", tag: "" });
+  const onChange = (e) => {
+    setNote({ ...note, [e.target.name]: e.target.value });
+  };
   const ref = useRef(null);
   return (
     <>
@@ -34,16 +44,16 @@ const Notes = () => {
               <form>
                 <div className="mb-3">
                   <label htmlFor="title" className="form-label">Title</label>
-                  <input type="text" className="form-control" id="title" name="title" aria-describedby="emailHelp" />
+                  <input type="text" className="form-control" id="etitle" name="etitle" aria-describedby="emailHelp" />
                   <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
                 </div>
                 <div className="mb-3">
                   <label htmlFor="description" className="form-label">Description</label>
-                  <input type="text" className="form-control" id="description" name="description" />
+                  <input type="text" className="form-control" id="edescription" name="edescription" />
                 </div>
                 <div className="mb-3">
                   <label htmlFor="tag" className="form-label">Tag</label>
-                  <input type="text" className="form-control" id="tag" name="tag" />
+                  <input type="text" className="form-control" id="etag" name="etag" />
                 </div>
               </form>
 
