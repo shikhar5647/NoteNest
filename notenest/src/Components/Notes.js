@@ -13,7 +13,7 @@ const Notes = () => {
   }, []);
   const updateNote = (currentNote) => {
     ref.current.click();
-    setNote(currentNote);
+    setNote({ etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,9 +21,10 @@ const Notes = () => {
     setNote({ title: "", description: "", tag: "" });
     ref.current.click();
   };
-  const [note, setNote] = useState({ title: "", description: "", tag: "" });
+  const [note, setNote] = useState({ etitle: "", edescription: "", etag: "" });
   const onChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value });
+
   };
   const ref = useRef(null);
   return (
@@ -61,7 +62,7 @@ const Notes = () => {
             </div>
             <div className="modal-footer">
               <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary">Update Note </button>
+              <button type="button" onClick={handleSubmit} className="btn btn-primary">Update Note </button>
             </div>
           </div>
         </div>
