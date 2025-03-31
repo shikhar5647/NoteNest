@@ -11,6 +11,7 @@ const Notes = () => {
     getNotes();
     // eslint-disable-next-line
   }, []);
+  
   const updateNote = (currentNote) => {
     ref.current.click();
     setNote({ etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag });
