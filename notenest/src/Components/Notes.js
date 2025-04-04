@@ -14,7 +14,7 @@ const Notes = () => {
   
   const updateNote = (currentNote) => {
     ref.current.click();
-    setNote({ etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag });
+    setNote({ id:currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag });
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,7 +22,7 @@ const Notes = () => {
     setNote({ title: "", description: "", tag: "" });
     ref.current.click();
   };
-  const [note, setNote] = useState({ etitle: "", edescription: "", etag: "" });
+  const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "" });
   const onChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value });
 
