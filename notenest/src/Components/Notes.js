@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Noteitem from './Noteitem';
 import AddNote from './AddNote';
 import { useRef } from 'react';
@@ -6,7 +6,9 @@ import { useRef } from 'react';
 import noteContext from '../Context/notes/noteContext';
 const Notes = () => {
   const context = useContext(noteContext);
-  const { notes, getNotes } = context;
+  const { notes, getNotes, editNote } = context;
+  const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "" });
+  
   useEffect(() => {
     getNotes();
     // eslint-disable-next-line
@@ -14,40 +16,21 @@ const Notes = () => {
   
   const updateNote = (currentNote) => {
     ref.current.click();
-    setNote({ id:currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag });
+    setNote({ id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag });
   };
+  
   const handleSubmit = (e) => {
     e.preventDefault();
-    editNote(note._id, note.title, note.description, note.tag);
-    setNote({ title: "", description: "", tag: "" });
-    ref.current.click();
+    editNote(note.id, note.etitle, note.edescription, note.etag);
+    setNote({ id: "", etitle: "", edescription: "", etag: "" });
   };
-  const [note, setNote] = useState({ id: "", etitle: "", edescription: "", etag: "" });
+  
   const onChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value });
-
   };
+  
   const ref = useRef(null);
   const refClose = useRef(null);
-  const editNote = async (id, title, description, tag) => {
-    const response = await fetch(`http://localhost:5000/api/notes/updatenote/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'auth-token': localStorage.getItem('token')
-        dy: JSON.stringify({ title, description, tag })
-        const json = await response.json();
-        const newNotes = JSON.parse(localStorage.getItem('notes'));
-        for (let index = 0; index < newNotes.length; index++) {
-          const element = newNotes[index];
-          if (element._id === id) {
-            newNotes[index].title = title;
-            newNotes[index].description = description;
-            newNotes[index].tag = tag;
-            break;
-            }
-            localStorage.setItem('notes', JSON.stringify(newNotes));
-            getNotes
 
   return (
     <>
@@ -66,21 +49,19 @@ const Notes = () => {
             <div className="modal-body">
               <form>
                 <div className="mb-3">
-                  <label htmlFor="title" className="form-label">Title</label>
-                  <input type="text" className="form-control" id="etitle" name="etitle" value={note.title} aria-describedby="emailHelp" />
+                  <label htmlFor="etitle" className="form-label">Title</label>
+                  <input type="text" className="form-control" id="etitle" name="etitle" value={note.etitle} onChange={onChange} aria-describedby="emailHelp" />
                   <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="description" className="form-label">Description</label>
-                  <input type="text" className="form-control" id="edescription" name="edescription"  value={note.description} />
+                  <label htmlFor="edescription" className="form-label">Description</label>
+                  <input type="text" className="form-control" id="edescription" name="edescription" value={note.edescription} onChange={onChange} />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="tag" className="form-label">Tag</label>
-                  <input type="text" className="form-control" id="etag" name="etag"  value={note.tag} />
+                  <label htmlFor="etag" className="form-label">Tag</label>
+                  <input type="text" className="form-control" id="etag" name="etag" value={note.etag} onChange={onChange} />
                 </div>
               </form>
-
-
             </div>
             <div className="modal-footer">
               <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -91,13 +72,17 @@ const Notes = () => {
       </div>
       <div className='row my-3'>
         <h2>Your Notes</h2>
-        {notes.map((note) => {
-          return <Noteitem key={note._id} note={note} />
-        })}
-
+        {notes.length === 0 ? (
+          <div className="container">No notes to display</div>
+        ) : (
+          notes.map((note) => {
+            return <Noteitem key={note._id} updateNote={updateNote} note={note} />
+          })
+        )}
       </div>
     </>
   );
 };
 
 export default Notes;
+
