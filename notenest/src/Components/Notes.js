@@ -28,6 +28,27 @@ const Notes = () => {
 
   };
   const ref = useRef(null);
+  const refClose = useRef(null);
+  const editNote = async (id, title, description, tag) => {
+    const response = await fetch(`http://localhost:5000/api/notes/updatenote/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'auth-token': localStorage.getItem('token')
+        dy: JSON.stringify({ title, description, tag })
+        const json = await response.json();
+        const newNotes = JSON.parse(localStorage.getItem('notes'));
+        for (let index = 0; index < newNotes.length; index++) {
+          const element = newNotes[index];
+          if (element._id === id) {
+            newNotes[index].title = title;
+            newNotes[index].description = description;
+            newNotes[index].tag = tag;
+            break;
+            }
+            localStorage.setItem('notes', JSON.stringify(newNotes));
+            getNotes
+
   return (
     <>
       <AddNote />
@@ -62,7 +83,7 @@ const Notes = () => {
 
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
               <button type="button" onClick={handleSubmit} className="btn btn-primary">Update Note </button>
             </div>
           </div>
