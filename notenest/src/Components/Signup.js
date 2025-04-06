@@ -7,8 +7,17 @@ const Signup = () => {
     const onChange = (e) => {
         console.log(e.target.value);
     }
+    let history = useHistory();
     const handleSubmit = (e) => {
         e.preventDefault();
+        fetch('http://localhost:5000/api/auth/createuser', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ name: credentials.name, email: credentials.email, password: credentials.password })
+        })
+        .then(res => res.json())
         console.log("submitted");
     }
     return (
