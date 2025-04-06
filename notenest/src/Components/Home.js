@@ -8,7 +8,7 @@ export const Home = () => {
   return (
     <div>
       <AddNote />
-      <Notes />
+      <Notes showAlert={props.showAlert} />
     </div>
   );
 };
