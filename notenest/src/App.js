@@ -24,6 +24,12 @@ function App() {
         <Routes>
           <Route exact path="/about" element={<About />} />
         </Routes>
+        <Routes>
+          <Route exact path="/login" element={<h1>Login</h1>} />
+          </Routes>
+          <Routes>
+            <Route exact path="/signup" element={<h1>Signup</h1>} />
+            </Routes>
         </div>
       </Router>
       </NoteState>
