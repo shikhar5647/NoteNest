@@ -5,6 +5,7 @@ const login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [credentials, setCredentials] = useState({ email: "", password: "" });
+    let history = useHistory();
     const handleSubmit = (e) => {
         e.preventDefault();
         fetch('http://localhost:5000/api/auth/login', {
@@ -13,12 +14,17 @@ const login = () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ email: credentials.email, password: credentials.password })
-        }).then(res => res.json())
-            .then(data => console.log(data))
-            .catch(err => console.log(err));
-        const email = e.target.email.value;
-        const password = e.target.password.value;
-        console.log(email, password);
+        })
+        .then(res => res.json())
+        console.log(json);
+        if (json.success) {
+            localStorage.setItem('token', json.authtoken);
+            props.showAlert("Logged in successfully", "success");
+        }
+        else {
+            props.showAlert("Invalid credentials", "danger");
+        }
+        setCredentials({ email: "", password: "" });
         const onChange = (e) => {
             setCredentials({ ...credentials, [e.target.name]: e.target.value });
             console.log(credentials);
